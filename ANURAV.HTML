@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Baloo 2', cursive;
+  background:linear-gradient(135deg,#ffd6e8,#fff1c1);
+  overflow-x:hidden;
+  text-align:center;
+}
+
+/* Floating emojis */
+.float{
+  position:fixed;
+  bottom:-40px;
+  font-size:24px;
+  animation:floatUp 7s linear infinite;
+  opacity:.7;
+}
+@keyframes floatUp{
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh)}
+}
+
+/* Sections */
+section{
+  padding:80px 20px;
+  max-width:900px;
+  margin:auto;
+}
+
+.hidden{display:none}
+
+/* Password */
+#lock{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+#lock input{
+  padding:14px;
+  border-radius:25px;
+  border:none;
+  width:240px;
+  text-align:center;
+  font-size:1rem;
+}
+#lock button{
+  margin-top:15px;
+  padding:12px 28px;
+  border:none;
+  border-radius:25px;
+  background:#ff6f91;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+}
+
+/* Hero */
+#hero h1{
+  font-family:'Pacifico', cursive;
+  font-size:3rem;
+  color:#ff4d6d;
+}
+#typing{
+  margin-top:20px;
+  font-size:1.4rem;
+}
+
+/* Card */
+.card{
+  background:white;
+  border-radius:25px;
+  padding:40px;
+  box-shadow:0 15px 30px rgba(0,0,0,.15);
+  margin-top:40px;
+}
+
+/* Game */
+#game-area{
+  position:relative;
+  height:220px;
+  margin-top:20px;
+}
+#heart{
+  position:absolute;
+  font-size:42px;
+  cursor:pointer;
+}
+
+/* Buttons */
+.btn{
+  padding:15px 40px;
+  border:none;
+  border-radius:40px;
+  font-size:1.2rem;
+  cursor:pointer;
+  margin:15px;
+}
+.yes{background:#ff4d6d;color:white}
+.no{
+  background:#ccc;
+  position:absolute;
+}
+
+/* Result */
+#result,#letter{
+  display:none;
+  margin-top:25px;
+}
+
+/* Confetti */
+.confetti span{
+  position:fixed;
+  width:10px;
+  height:10px;
+  background:#ff4d6d;
+  top:-10px;
+  animation:fall 3s linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<script>
+const emojis=["💖","💕","💘","🌸","🧸","✨"];
+for(let i=0;i<25;i++){
+  let e=document.createElement("div");
+  e.className="float";
+  e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left=Math.random()*100+"%";
+  e.style.animationDelay=Math.random()*6+"s";
+  document.body.appendChild(e);
+}
+</script>
+
+<!-- PASSWORD -->
+<section id="lock">
+  <h1>For You Only 💌</h1>
+  <input type="password" id="pass" placeholder="Password">
+  <button onclick="unlock()">Unlock 💖</button>
+</section>
+
+<div id="content" class="hidden">
+
+<!-- HERO -->
+<section id="hero">
+  <h1>Hey You 🧸</h1>
+  <div id="typing"></div>
+</section>
+
+<!-- YOUR TEXT -->
+<section>
+  <div class="card">
+    <p>
+      💕 I love you more than you ever thought.  
+      <br><br>
+      When we met, I knew you were lying about how you knew me.  
+      <br><br>
+      But still… my heart accepted you.  
+      It chose you.  
+      <br><br>
+      I believed that one imperfect lie  
+      could still mean forever. 💖
+    </p>
+  </div>
+</section>
+
+<!-- GAME -->
+<section>
+  <div class="card">
+    <h2>Catch my heart 💖</h2>
+    <p>(It’s shy… just like me 🙈)</p>
+    <div id="game-area">
+      <div id="heart">❤️</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPOSAL -->
+<section>
+  <div class="card" style="position:relative">
+    <h2>So… 🥺👉👈</h2>
+    <p>Will you be my Valentine? 💌</p>
+
+    <button class="btn yes" onclick="sayYes()">YES 💕</button>
+    <button class="btn no" id="noBtn">NO</button>
+
+    <div id="result">YAYYY 😭💖 I knew it!!!</div>
+
+    <div id="letter">
+      <p>
+        I promise lots of love 💕  
+        bad jokes 😄  
+        warm hugs 🫂  
+        and choosing you every day 💖
+      </p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+function unlock(){
+  if(pass.value==="anuravv"){
+    lock.style.display="none";
+    content.classList.remove("hidden");
+    startTyping();
+    startGame();
+    activateNo();
+  } else alert("Wrong password 😛");
+}
+
+/* Typing */
+const text="I made something cute… just for you 💕";
+let i=0;
+function startTyping(){
+  if(i<text.length){
+    typing.innerHTML+=text.charAt(i++);
+    setTimeout(startTyping,70);
+  }
+}
+
+/* Game */
+function startGame(){
+  const heart=document.getElementById("heart");
+  const area=document.getElementById("game-area");
+
+  setInterval(()=>{
+    heart.style.left=Math.random()*(area.clientWidth-40)+"px";
+    heart.style.top=Math.random()*(area.clientHeight-40)+"px";
+  },800);
+
+  heart.onclick=()=>alert("You caught my heart 💖");
+}
+
+/* Tricky NO */
+function activateNo(){
+  const no=document.getElementById("noBtn");
+  no.addEventListener("mouseenter",()=>moveNo(no));
+  no.addEventListener("click",()=>moveNo(no));
+}
+function moveNo(btn){
+  btn.style.left=Math.random()*60+"%";
+  btn.style.top=Math.random()*60+"%";
+}
+
+/* YES */
+function sayYes(){
+  result.style.display="block";
+  letter.style.display="block";
+
+  for(let i=0;i<80;i++){
+    let c=document.createElement("span");
+    c.style.left=Math.random()*100+"%";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+</script>
+
+</body>
+</html>
